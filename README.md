@@ -1,35 +1,32 @@
 # chaDB
+<br>
 
 ## this is embedded db
 <br>
 
 ## directory tree
-root
-  |db
+root<br>
+  |db<br>
   |testDB
-
 <br>
 
 ## testDB/database.js
 you need change 'dbroot' value to your 'project root path\\db'<br>
-example
+<br>*example*
 > const root = 'C:\\Users\\[your user name]\\[your path]\\db'
-
 <br>
 
 ## start
 
-> cd testDB
+> cd testDB<br>
 > node input
-<br>
 and input below command 
-
+<br>
 <br>
 
-## 명령어
-<br>
+## COMMAND
 
-### name 규칙 : 띄어쓰기X, 정규식 \w로만 표현 가능하게.
+### name rule : just permit regular expression \w.
 
 1. db **create** [db name] => new folder
 2. db **use** [db name] => path : db folder

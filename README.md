@@ -6,8 +6,8 @@ this is embedded db
 ## directory tree
 - root<br>
     - db
-        -yourdb1
-            -yourtable1
+        - yourdb1
+            - yourtable1
     - testDB
         - database.js
         - table.js
@@ -60,7 +60,10 @@ and input below command
 <br>
 
 ### 예시(회원가입)
-`tb create user (email str, name str, firstname str, password str, month int, day int, year int)`. 
+`tb create user (email str, name str, firstname str, password str, month int, day int, year int)`.
+
+<br>
+
 `tb insert user (email, password) values(hi@test.com, 123##@@!)`. 
 
 

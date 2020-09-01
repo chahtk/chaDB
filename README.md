@@ -54,3 +54,11 @@ and input below command
 9. tb **delete** [table name] => rm file
 10. tb **show**  => print table list
 11. tb **desc** [table name] => desc table
+
+<br>
+
+db 명령어 : create, use, drop, show  
+table(tb) 명령어 : create, insert, select, update, delete, show, desc  
+
+예제 ) db create [name], tb create [name] (col1 type, col2 type, ...)  
+주의사항 ) column이나 where 뒤의 조건 같은 경우 문법(괄호, 쉼표, 띄어쓰기 구분)을 잘 지켜야 합니다.

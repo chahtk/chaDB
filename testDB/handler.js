@@ -70,7 +70,7 @@ const tbHandler = (str) =>{
 
     // db use [dbname] first
 
-    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|( \w+)|(\([\w, ]+\))/gi)
+    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|(from|where)|( \w+)|(\([\w, =@!.]+\))/gi)
     // log(parsed)
     if(parsed==null){
         log('잘못된 입력입니다. 명령어를 입력해주세요.')
@@ -99,6 +99,28 @@ const tbHandler = (str) =>{
             } else{
                 log('잘못된 입력입니다. 다음과 같이 입력하세요. tb insert tblename (col1, col2) values(val1, val2)')
             }
+            break;
+
+        case 'select':
+            if(parsed.length < 5){
+                log('잘못된 입력입니다. 다음과 같이 입력하세요. tb select tablename (col1) from tablename where(col1=val1)')
+                break;
+            }
+            // tb select (col1, col2) from tablename2 where(col1=val1)
+            const parsed_nospace = parsed.map( v => v.replace(" ",""))
+            // log('select : ', parsed_nospace)
+            const cols = parsed_nospace[2], tname = db_path+parsed_nospace[4];
+            let where = ''
+            if(parsed_nospace.length>6){
+                where = parsed_nospace[6];
+            }
+            const result = tb.select(cols, tname, where)
+            console.log('select result ====>  ', result)
+
+            break;
+
+        case 'update':
+            log('미구현')
             break;
 
         case 'delete':

@@ -11,6 +11,8 @@ const log = console.log;
 // db.showDB()
 
 let db_path = ''
+// for test
+db_path = 'C:/Users/82109/Documents/GitHub/chaDB/db/hi2/'
 
 const spaceParser = (str) =>{
     return str.replace(" ","")

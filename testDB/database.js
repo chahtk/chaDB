@@ -1,25 +1,25 @@
 const fs = require('fs')
 
-const dbroot = 'C:\\Users\\82109\\Documents\\GitHub\\chaDB\\db'
+const dbroot = 'C:/Users/82109/Documents/GitHub/chaDB/db'
 
 module.exports = {
 
     create(dbname){ // mkdir dbname
-        fs.mkdirSync(`${dbroot}\\${dbname}`)
-        console.log(`생성됨 >> ${dbroot}\\${dbname}`)
+        fs.mkdirSync(`${dbroot}/${dbname}`)
+        console.log(`생성됨 >> ${dbroot}/${dbname}`)
     },
 
     use(dbname){ // path = dbname
         try{
-            fs.lstatSync(dbroot + '\\' +dbname).isDirectory()
-            console.log("현재경로 >> " + dbroot + '\\' + dbname)
-            return dbroot + '\\' + dbname + '\\'
+            fs.lstatSync(dbroot + '/' +dbname).isDirectory()
+            console.log("현재경로 >> " + dbroot + '/' + dbname)
+            return dbroot + '/' + dbname + '/'
         } catch(e) { console.error(e)}
     },
 
     drop(dbname){ // rm -rf dbname
         try{
-            fs.rmdirSync(`${dbroot}\\${dbname}`)
+            fs.rmdirSync(`${dbroot}/${dbname}`)
         } catch(e) { console.error(e)}
     },
 

@@ -5,7 +5,9 @@ this is embedded db
 
 ## directory tree
 - root<br>
-- db
+    - db
+        -yourdb1
+            -yourtable1
     - testDB
         - database.js
         - table.js
@@ -57,8 +59,15 @@ and input below command
 
 <br>
 
+### 예시(회원가입)
+`tb create user (email str, name str, firstname str, password str, month int, day int, year int)`. 
+`tb insert user (email, password) values(hi@test.com, 123##@@!)`. 
+
+
+<br>
+
 db 명령어 : create, use, drop, show  
 table(tb) 명령어 : create, insert, select, update, delete, show, desc  
 
 예제 ) db create [name], tb create [name] (col1 type, col2 type, ...)  
-주의사항 ) column이나 where 뒤의 조건 같은 경우 문법(괄호, 쉼표, 띄어쓰기 구분)을 잘 지켜야 합니다.
+주의사항 ) column이나 where 뒤의 조건 같은 경우 문법(괄호, 쉼표, 띄어쓰기 구분)을 잘 지켜야 합니다. ==> 현재 괄호 안에 입력하는 경우 쉼표 후 띄어써야하는듯 합니다(테스트 필요). 

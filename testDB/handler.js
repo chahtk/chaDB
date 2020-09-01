@@ -12,7 +12,7 @@ const log = console.log;
 
 let db_path = ''
 // for test
-db_path = 'C:/Users/82109/Documents/GitHub/chaDB/db/hi2/'
+db_path = '/Users/chahtk/GitWorkspace/chaDB/db/hi2/'
 
 const spaceParser = (str) =>{
     return str.replace(" ","")
@@ -70,7 +70,7 @@ const tbHandler = (str) =>{
 
     // db use [dbname] first
 
-    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|(from|where)|( \w+)|(\([\w, =@!.]+\))/gi)
+    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|(from|where)|( \w+)|(\([\w, =!@#$%^&*-+.]+\))/gi)
     // log(parsed)
     if(parsed==null){
         log('잘못된 입력입니다. 명령어를 입력해주세요.')

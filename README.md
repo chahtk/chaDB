@@ -5,12 +5,12 @@ this is embedded db
 
 ## directory tree
 root<br>
--db
--testDB
-    -database.js
-    -table.js
-    -handler.js
-    -input.js
+- db
+- testDB
+    - database.js
+    - table.js
+    - handler.js
+    - input.js
 <br>
 
 ## testDB/database.js

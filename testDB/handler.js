@@ -100,6 +100,31 @@ const tbHandler = (str) =>{
                 log('잘못된 입력입니다. 다음과 같이 입력하세요. tb insert tblename (col1, col2) values(val1, val2)')
             }
             break;
+
+        case 'delete':
+            if(parsed.length<3){
+                log('잘못된 입력입니다. 다음과 같이 입력하세요. tb delete [table name]')
+            } else{
+                const path_delete = db_path+parsed[2].replace(" ","");
+                tb.delete(path_delete);
+            }
+            break;
+
+        case 'show':
+            tb.show(db_path)
+            break;
+
+        case 'desc':
+            if(parsed.length<3){
+                log('잘못된 입력입니다. 다음과 같이 입력하세요. tb desc [table name]')
+            } else{
+                const path_desc = db_path+parsed[2].replace(" ","");
+                tb.desc(path_desc);
+            }
+            break;
+        default:
+            log('잘못된 명령입니다.')
+            break;
     }
 }
 

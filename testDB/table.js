@@ -74,19 +74,24 @@ module.exports = {
         log('update table')
     },
     
-    delete(tname){
-        // rm table
-        log('delete table')
+    delete(tname){ // delete table name
+        // tb delete tablename3.json
+        try{
+            fs.unlinkSync(tname+'.json')
+        } catch(e) { console.error(e)}
+        log('delete ',tname)
     },
 
-    show (){
-        // print table list
-        log('show table list')
+    show(path){ // ls
+        // tb show ( use db first)
+        const tableLIST = fs.readdirSync(path)
+        console.log(tableLIST)
     },
 
     desc(tname){
-        // desc table
-        log('desc table')
+        // tb desc table
+        const file = require(tname)
+        log("desc ===> ", file.desc)
     },
 
 }

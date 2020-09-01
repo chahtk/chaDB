@@ -120,7 +120,20 @@ const tbHandler = (str) =>{
             break;
 
         case 'update':
-            log('미구현')
+            // tb update tablename2 set (col1=newmail@addr.com) where (col1=test@test.com)
+            if(parsed.length < 5){
+                log('잘못된 입력입니다. 다음과 같이 입력하세요. tb update tablename set(col1=newvalue) where(col1=value)')
+                break;
+            }
+            const parsed_update = parsed.map( v => v.replace(" ",""))
+            // log('update : ', parsed_update)
+            const sets = parsed_update[4], tname_update = db_path+parsed_update[2];
+            let where_update = ''
+            if(parsed_update.length>6){
+                where_update = parsed_update[6];
+            }
+            const result_update = tb.update(tname_update, sets, where_update)
+            // console.log('select result ====>  ', result_update)
             break;
 
         case 'delete':

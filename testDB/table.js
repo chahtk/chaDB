@@ -70,23 +70,14 @@ module.exports = {
     select(cols, tname, where){ // where : obj
         // tb select (col1, col2) from tablename2 where(col1=val1, col2=val2)
         // tb select (col1, col2) from tablename2 where(col1=asd@hi, col2=weq231)
+        // tb select (col1, col2) from tablename2 where(col1=asd@hi, col2=weq231)
 
-        
-            /* chaDB/db/hi2/tablename2.json
-            {
-                "test@test.com":{"col1":"test@test.com","col2":"testpass!"},
-                "asd@hi":{"col1":"asd@hi","col2":"weq231"}
-            }
-            */
-
-            
         log(`select : ${cols}, ${tname}, ${where}`)
 
         // parsing : cols, where , filename : tname
         const parsed_cols = cols.split(",").map(v=>v.match(/\w+/g)[0] )
         const parsed_where = where.split(",").map(v=>{
             const [col,val] = v.match(/[\w!@#$%^&*-.]+/g)
-            // log(col,val)
             const obj = {};
             obj[col]=val;
             return obj;
@@ -123,7 +114,7 @@ module.exports = {
                     }
                 } catch {}
             })
-            // tb select (col1, col2) from tablename2 where(col1=asd@hi, col2=weq231)
+            
             // 조건을 모두 만족 했음!
             // log(flag == parsed_where.length)
             if(flag == parsed_where.length){
@@ -137,8 +128,84 @@ module.exports = {
         return result
     },
 
-    update(tname, set, where){ // set, where : obj
-        log('update table')
+    update(tname, sets, where){ // set, where : obj   
+    
+        /* chaDB/db/hi2/tablename2.json
+        {
+            "test@test.com":{"col1":"test@test.com","col2":"testpass!"},
+            "asd@hi":{"col1":"asd@hi","col2":"weq231"}
+        }
+        */
+       
+       log(`tname:${tname}, set:${sets}, where:${where}`)
+       // tb update tablename2 set (col1=newmail@addr.com) where (col1=test@test.com)
+
+        // parsing : sets, where , filename : tname
+
+        const parsed_sets = [], parsed_where = [] // 업데이트 할 {key : value} 객체/ 조건 객체
+        sets.split(",").map(v=>{
+            const [key, val] = v.match(/[\w!@#$%^&*-.]+/g)
+            parsed_sets.push([key,val])
+        })
+        where.split(",").map(v=>{
+            const [key,val] = v.match(/[\w!@#$%^&*-.]+/g)
+            const obj = {};
+            obj[key]=val;
+            parsed_where.push(obj)
+        })
+        log(parsed_sets, parsed_where)
+    
+        const tableName = require(tname+'.json')
+
+        const targetkey_list = Object.keys(tableName).slice(1) // 테이블의 모든 키, 0번째는 버림
+        // log(targetkey_list)
+
+        // 테이블의 값들을 탐색( targetkey_list : 이메일주소와 같은 primarykey)
+        targetkey_list.map( targetkey=>{ // key(primarykey) : targetObj
+            // 키를 이용해 테이블 값에 접근
+            const targetObj = tableName[targetkey];
+            // log(targetkey, targetObj)
+            let flag = 0;
+
+            // 조건 탐색
+            parsed_where.map( v =>{
+                // v = {key:val}
+                const key = Object.keys(v)[0]
+                const val = Object.values(v)[0]
+                
+                try{
+                    if(targetObj[key] == val){ // 조건 하나 만족!
+                        flag++;
+                    }
+                } catch {}
+            })
+            
+            // 조건을 모두 만족 했음!
+            if(flag == parsed_where.length){
+                parsed_sets.map( (v) =>{
+                    const [key,val] = v;
+                    // log(key,val)
+                    
+                    const file = require(tname)
+                    // 목표 객체에 목표 값 삽입
+                    targetObj[key] = val;
+                    // 목표 객체 업데이트
+                    file[targetkey] = targetObj
+                    // log(file)
+                    // 파일 업데이트
+                    const toJson_update = JSON.stringify(file)
+                    fs.writeFileSync(`${tname}.json`, toJson_update, (err) =>{
+                        if(err){
+                            console.error(err);
+                            throw err;
+                        }
+                    })
+                    log(`${key}의 값 ${targetObj[key]}를 ${val}로 변경했습니다!`)
+
+                })
+            }
+            
+        })
     },
     
     delete(tname){ // delete table name

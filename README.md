@@ -4,13 +4,13 @@ this is embedded db
 <br>
 
 ## directory tree
-root<br>
+- root<br>
 - db
-- testDB
-    - database.js
-    - table.js
-    - handler.js
-    - input.js
+    - testDB
+        - database.js
+        - table.js
+        - handler.js
+        - input.js
 <br>
 
 ## testDB/database.js
@@ -18,6 +18,9 @@ you need change 'dbroot' value to your 'project root path\\db'<br>
 <br>*example*
 > const root = 'C:\\Users\\[your user name]\\[your path]\\db'
 <br>
+
+## Data format
+**JSON**
 
 ## start
 

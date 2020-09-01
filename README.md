@@ -49,7 +49,7 @@ and input below command
 <br>
 > 로그인 : select id, pw from user where id=(check_id) and pw=(check_pw)
 
-8. tb **update** [table name] set [feild name1=data1, ...] where (feild name = value)
+8. tb **update** [table name] set (column name1=data1, ...) where (column name = value, ...)
 
 9. tb **delete** [table name] => rm file
 10. tb **show**  => print table list

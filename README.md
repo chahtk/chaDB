@@ -1,17 +1,16 @@
 # chaDB
+this is embedded db
 <br>
-
-## this is embedded db
 <br>
 
 ## directory tree
 root<br>
-  |db<br>
-  |testDB<br>
-    |database.js
-    |table.js
-    |handler.js
-    |input.js
+    |db<br>
+    |testDB<br>
+        |database.js<br>
+        |table.js<br>
+        |handler.js<br>
+|input.js<br>
 <br>
 
 ## testDB/database.js

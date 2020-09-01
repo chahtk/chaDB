@@ -44,9 +44,9 @@ module.exports = {
         log(`insert argument : ${tname} , ${cols} , ${vals}` , typeof tname)
 
         try{
-            const parsed_cols = cols.split(", ").map( v => v.match(/\w+/g));
-            const parsed_vals = vals.replace("values","").split(", ").map(v=>v.match(/[\w!@#$%^&*-=]+/g)[0])
-
+            const parsed_cols = cols.split(",").map( v => v.match(/\w+/g)[0]);
+            const parsed_vals = vals.replace("values","").split(",").map(v=>v.match(/[\w!@#$%^&*-=]+/g)[0])
+            // log(parsed_cols, parsed_vals)
             const data = {}
             for(let i=0; i<parsed_cols.length; i++){
                 data[parsed_cols[i]] = parsed_vals[i]
@@ -54,7 +54,7 @@ module.exports = {
 
             const file = require(tname)
             file[parsed_vals[0]] = data
-            log(file)
+            // log(file)
 
             const toJson = JSON.stringify(file)
             fs.writeFileSync(`${tname}.json`, toJson, (err) =>{

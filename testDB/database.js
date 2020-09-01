@@ -13,7 +13,7 @@ module.exports = {
         try{
             fs.lstatSync(dbroot + '\\' +dbname).isDirectory()
             console.log("현재경로 >> " + dbroot + '\\' + dbname)
-            return dbroot + '\\' + dbname
+            return dbroot + '\\' + dbname + '\\'
         } catch(e) { console.error(e)}
     },
 

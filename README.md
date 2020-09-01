@@ -42,7 +42,7 @@ and input below command
 5. tb **create** [table name] (...) => new file in db folder<br>
 > tb create tablename (col1 int1, col2 int2, col3 int3)  *be careful ', '*
 
-6. tb **insert** into [table name] (col1, [col2, col3, ...]) values(vla1, [val2, val3, ...])
+6. tb **insert** [table name] (col1, [col2, col3, ...]) values(val1, [val2, val3, ...])
 
 7. tb **select** [column name] from [table name] where (col name = value)
 > 회원가입 : 이메일 주소 있는지, select email from user where email=(check_email)<br>

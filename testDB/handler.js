@@ -12,7 +12,7 @@ const log = console.log;
 
 let db_path = ''
 // for test
-db_path = '/Users/chahtk/GitWorkspace/chaDB/db/hi2/'
+db_path = 'C:/Users/82109/Documents/GitHub/chaDB/db/hi2/'
 
 const spaceParser = (str) =>{
     return str.replace(" ","")

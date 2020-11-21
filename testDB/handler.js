@@ -12,7 +12,6 @@ const log = console.log;
 // db.showDB()
 
 let db_path = require('path').join(__dirname,'..','db','hi2/')
-// for test
 
 const spaceParser = (str) =>{
     return str.replace(" ","")

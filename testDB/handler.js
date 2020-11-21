@@ -1,5 +1,6 @@
 const db = require('./database')
 const tb = require('./table');
+
 const log = console.log;
 
 // db.createDB('A')
@@ -10,9 +11,8 @@ const log = console.log;
 // db.dropDB('A')
 // db.showDB()
 
-let db_path = ''
+let db_path = require('path').join(__dirname,'..','db','hi2/')
 // for test
-db_path = '/Users/chahtk/GitWorkspace/chaDB/db/hi2/'
 
 const spaceParser = (str) =>{
     return str.replace(" ","")
@@ -20,7 +20,7 @@ const spaceParser = (str) =>{
 
 const dbHandler = (str) =>{
 
-    const parsed = str.match(/(db )|(create|use|drop|show)|( \w+)/gi)
+    const parsed = str.match(/(db )|(create|use|drop|show)|( [\wㄱ-ㅎㅏ-ㅣ가-힣, =!@#$%^&*-=+.]+)/gi)
     // log(parsed , parsed.length)
     if(parsed==null){
         log('잘못된 입력입니다. 명령어를 입력해주세요.')
@@ -69,8 +69,9 @@ const dbHandler = (str) =>{
 const tbHandler = (str) =>{
 
     // db use [dbname] first
-
-    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|(from|where)|( \w+)|(\([\w, =!@#$%^&*-+.]+\))/gi)
+    // log(str)
+    let result_return = [] // result for return
+    const parsed = str.match(/(tb )|(create|insert|select|update|delete|show|desc)|(from|where)|( [\w./]+)|(\([\wㄱ-ㅎㅏ-ㅣ가-힣, !@#<>$%^&*-=+.]+\))/gi)
     // log(parsed)
     if(parsed==null){
         log('잘못된 입력입니다. 명령어를 입력해주세요.')
@@ -95,9 +96,10 @@ const tbHandler = (str) =>{
             // ex : tb insert tablename (col1, col2) values(val1, val2)
             if(parsed.length==6){
                 const path_tablename = db_path+parsed[2].replace(" ","")
-                tb.insert(path_tablename,parsed[3],parsed[5])
+                tb.insert(path_tablename,parsed[3],parsed[5]) // 3 : cols, 5: values
             } else{
-                log('잘못된 입력입니다. 다음과 같이 입력하세요. tb insert tblename (col1, col2) values(val1, val2)')
+                log(str)
+                log('===> 잘못된 입력입니다. 다음과 같이 입력하세요. tb insert tblename (col1, col2) values(val1, val2)')
             }
             break;
 
@@ -109,14 +111,15 @@ const tbHandler = (str) =>{
             // tb select (col1, col2) from tablename2 where(col1=val1)
             const parsed_nospace = parsed.map( v => v.replace(" ",""))
             // log('select : ', parsed_nospace)
-            const cols = parsed_nospace[2], tname = db_path+parsed_nospace[4];
+            const cols = parsed_nospace[2];
+            const tname = require('path').join(db_path+parsed_nospace[4]);
             let where = ''
             if(parsed_nospace.length>6){
                 where = parsed_nospace[6];
             }
-            const result = tb.select(cols, tname, where)
-            console.log('select result ====>  ', result)
-
+            const result_select = tb.select(cols, tname, where)
+            // console.log('select result ====>  ', result_select)
+            result_return = result_select
             break;
 
         case 'update':
@@ -161,10 +164,12 @@ const tbHandler = (str) =>{
             log('잘못된 명령입니다.')
             break;
     }
+    return result_return;
 }
 
 module.exports ={
     handler(str) {
+        let result = []
         if(str.match(/^(db|tb)/gi)==null){
             log('잘못된 입력입니다. db 나 tb로 시작하는 명령어를 입력하세요.')
             return ;
@@ -177,10 +182,12 @@ module.exports ={
                 dbHandler(str)
                 break;
             case 'tb': // table
-                tbHandler(str)
+                result = tbHandler(str)
                 break;
             default: // it's null
                 break;
         }
+        // console.log("handler reuslt ==> ", result)
+        return result
     }
 }

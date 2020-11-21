@@ -1,6 +1,6 @@
 const fs = require('fs')
-
-const dbroot = '/Users/chahtk/GitWorkspace/chaDB/db'
+const path = require('path')
+const dbroot = path.join(__dirname,'..','db')
 
 module.exports = {
 
